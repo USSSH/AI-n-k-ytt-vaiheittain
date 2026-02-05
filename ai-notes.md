@@ -5,11 +5,11 @@ Tekoälylle annettut promtit sekä tiivistelmä mitä tekoäly antoi vastaukseks
 ## 1. Prompti
 *Älä luo mitään ylimääräistä mitä ei pyydetä. Aloitetaan tekemällä C# konsoli sovellus.*
 
-´´´
-Created C# Console application workspace.
-using "Create New Workspace"
-Getting setup information
-Created C# Program.cs
-Created ConsoleApp.csproj
+```
+- Created C# Console application workspace.  
+- using "Create New Workspace"  
+- Getting setup information  
+- Created C# Program.cs  
+- Created ConsoleApp.csproj  
 ```
 
