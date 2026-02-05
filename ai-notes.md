@@ -42,5 +42,15 @@ Ei kuitenkaan mitään suurta.
 
 Prompti toimi hyvin ja tekoäly loi mitä pyydettiin.
 
+### If Lause viikonloppujen kiinniolon vuoksi
+
+*Lisätään if lause mikäli käyttäjä yrittää valita päivänmäärän mikä on viikonpäivänä lauantai tai sunnuntai. Virhe ilmoituksessa kerrotaan, että liike ei ole auki lauantaina eikä sunnuntaina. Liike on auki vain arkisin 08.00 - 16.00*
+
+```
+- Lisään validoinnit päivänmäärälle ja ajoille (vain arkisin 08:00 - 16:00, ei lauantai/sunnuntai).
+```
+
+Tässäkin tapauksessa prompti toimi hyvin. Tekoäly tosin lisäsi koodin myös seuraavan if lauseen ilman, että sitä laittoi sinne itse. Eli hieman toimi yli pyydetyn.  
+Olisi pitänyt varmistaa, että ei tee näin.
 
 

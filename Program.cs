@@ -55,6 +55,18 @@ namespace ConsoleApp
             }
             if (pvm.Equals("B", StringComparison.OrdinalIgnoreCase)) return;
             if (pvm.Equals("X", StringComparison.OrdinalIgnoreCase)) { Console.WriteLine("Ohjelma päätetään."); Environment.Exit(0); }
+            if (!DateTime.TryParse(pvm, out DateTime date))
+            {
+                Console.WriteLine("Virheellinen päivämäärä. Käytä muotoa YYYY-MM-DD tai vastaavaa.");
+                return;
+            }
+
+            var dow = date.DayOfWeek;
+            if (dow == DayOfWeek.Saturday || dow == DayOfWeek.Sunday)
+            {
+                Console.WriteLine("Virhe: Liike ei ole auki lauantaina eikä sunnuntaina.");
+                return;
+            }
 
             Console.Write("Alkamiskellonaika (HH:mm): ");
             string alk = Console.ReadLine();
@@ -65,6 +77,11 @@ namespace ConsoleApp
             }
             if (alk.Equals("B", StringComparison.OrdinalIgnoreCase)) return;
             if (alk.Equals("X", StringComparison.OrdinalIgnoreCase)) { Console.WriteLine("Ohjelma päätetään."); Environment.Exit(0); }
+            if (!TimeSpan.TryParse(alk, out TimeSpan start))
+            {
+                Console.WriteLine("Virheellinen kellonaika. Käytä muotoa HH:mm.");
+                return;
+            }
 
             Console.Write("Päättymiskellonaika (HH:mm): ");
             string loppu = Console.ReadLine();
@@ -75,8 +92,22 @@ namespace ConsoleApp
             }
             if (loppu.Equals("B", StringComparison.OrdinalIgnoreCase)) return;
             if (loppu.Equals("X", StringComparison.OrdinalIgnoreCase)) { Console.WriteLine("Ohjelma päätetään."); Environment.Exit(0); }
+            if (!TimeSpan.TryParse(loppu, out TimeSpan end))
+            {
+                Console.WriteLine("Virheellinen kellonaika. Käytä muotoa HH:mm.");
+                return;
+            }
 
-            string varaus = $"{pvm} {alk}-{loppu}";
+            TimeSpan open = TimeSpan.FromHours(8);
+            TimeSpan close = TimeSpan.FromHours(16);
+
+            if (start < open || end > close || start >= end)
+            {
+                Console.WriteLine("Virhe: Liike on auki vain arkisin 08:00 - 16:00 ja aloitus täytyy olla ennen loppua.");
+                return;
+            }
+
+            string varaus = $"{date:yyyy-MM-dd} {start:hh\\:mm}-{end:hh\\:mm}";
             VaratutAika.Add(varaus);
             Console.WriteLine($"Aika lisätty varattuihin: {varaus}");
         }
