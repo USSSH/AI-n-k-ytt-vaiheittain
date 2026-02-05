@@ -34,3 +34,13 @@ Ei kuitenkaan mitään suurta.
 
 ## 3. Varaa aika methodi
 
+*Tee methodi varaa aika: Käyttäjälle kerrotaan mikä päivänmäärä tänään on ja kerrotaan, että mikäli hän haluaa palata edelliseen valikkoon hän kirjoittaa B ja mikäli hän haluaa lopettaa hän kirjoittaa X ja painaa enteriä. Käyttäjältä kysytään päivänmäärää jolloin hän haluaa varata ajan. Seuraavaksi käyttäjältä kysytään alkamiskellon aika ja sitten päättymiskellon aika. Varatut ajat lisätän varatut ajat listalle.*
+
+```
+- Edited C# Program.cs +44 -1
+```
+
+Prompti toimi hyvin ja tekoäly loi mitä pyydettiin.
+
+
+
