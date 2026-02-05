@@ -17,7 +17,7 @@ Käyttäjänä haluan varataa minulle sopivan ajan.
  **Given** Varauksia voi tehdä koko päivän.
  **And** Ei varauksia tänään
  **When** Asiakas katsoi ajat ja valitsi sopivan ajan
- **Then** Varaus hyväksytään ja tallennetaan tietokantaan.
+ **Then** Varaus hyväksytään ja tallennetaan varauslistaan.
 
 **2-Scenario**Varaus epäonnistui olemassa olevan varauksen vuoksi
  **Given** Samalle päivämäärälle on olemassa oleva varaus.
