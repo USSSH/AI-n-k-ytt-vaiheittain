@@ -1,11 +1,26 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleApp
 {
     class Program
     {
-        static List<string> VaratutAika = new List<string>();
+        class Booking
+        {
+            public DateTime Date { get; }
+            public TimeSpan Start { get; }
+            public TimeSpan End { get; }
+            public Booking(DateTime date, TimeSpan start, TimeSpan end)
+            {
+                Date = date.Date;
+                Start = start;
+                End = end;
+            }
+            public override string ToString() => $"{Date:yyyy-MM-dd} {Start:hh\\:mm}-{End:hh\\:mm}";
+        }
+
+        static List<Booking> VaratutAika = new List<Booking>();
 
         static void Main(string[] args)
         {
@@ -107,9 +122,40 @@ namespace ConsoleApp
                 return;
             }
 
-            string varaus = $"{date:yyyy-MM-dd} {start:hh\\:mm}-{end:hh\\:mm}";
-            VaratutAika.Add(varaus);
-            Console.WriteLine($"Aika lisätty varattuihin: {varaus}");
+            // Tarkista päällekkäisyydet
+            var bookingsForDay = VaratutAika.Where(b => b.Date.Date == date.Date).OrderBy(b => b.Start).ToList();
+            foreach (var b in bookingsForDay)
+            {
+                if (!(end <= b.Start || start >= b.End))
+                {
+                    // Löytyi päällekkäisyys, etsitään seuraava vapaa aikaväli samana päivänä
+                    TimeSpan duration = end - start;
+                    TimeSpan candidate = start;
+                    foreach (var ex in bookingsForDay)
+                    {
+                        if (candidate + duration <= ex.Start)
+                        {
+                            Console.WriteLine($"Aikaväli on varattu. Seuraava mahdollinen aikaväli: {date:yyyy-MM-dd} {candidate:hh\\:mm}-{(candidate + duration):hh\\:mm}");
+                            return;
+                        }
+                        if (candidate < ex.End) candidate = ex.End;
+                    }
+
+                    if (candidate + duration <= close)
+                    {
+                        Console.WriteLine($"Aikaväli on varattu. Seuraava mahdollinen aikaväli: {date:yyyy-MM-dd} {candidate:hh\\:mm}-{(candidate + duration):hh\\:mm}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Aikaväli on varattu eikä saman päivän aikana ole vapaita aikoja.");
+                    }
+                    return;
+                }
+            }
+
+            var uusi = new Booking(date, start, end);
+            VaratutAika.Add(uusi);
+            Console.WriteLine($"Aika lisätty varattuihin: {uusi}");
         }
     }
 }
