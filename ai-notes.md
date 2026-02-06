@@ -88,3 +88,16 @@ Tämä promptin jälkeen tekoäly jätti vielä kutsumattoman methodin pyörimä
 
 *Et tiettävästi käytä NaytaVaratutAjat() methodia missään onko tämä methodi turha vai enkö vain huomaa missä sitä käytät?*
 
+## 5. VapaatAjat Methodi
+
+*Luo Methodi VapaatAjat(), joka näyttää käytettävissä olevat ajat ja linkitä methodi päävalikon ensimmmäiseen vaihtoehtoon Vapaat Ajat. Tämä Methodi vähentää varatut ajat käytettävissä olevasta kokonaisajasta ja näyttää varattavissa olevat ajat*
+
+```
+- Reviewed Program.cs Lines 1 to 50.
+- Lisään VapaatAjat() methodin ja linkitän sen päävalikon vaihtoehtoon 1.
+- Updated Program.cs and ran command.
+- VapaatAjat() methodi näyttää seuraavien 10 arkipäivän vapaat ajat, laskien varatut aikavälit ja näyttäen jäljellä olevan vapaan ajan jokaiselle päivälle.
+```
+
+Prompti toimi joksenkin hyvin. Loi mitä halutiin, mutta loi myös sellaista mitä ei pyydetty. Emme pyytäneet tai spesifioineet näyttämään 10 arkipäivää eteenpäin.
+

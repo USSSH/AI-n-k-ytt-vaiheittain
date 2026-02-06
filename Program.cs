@@ -38,7 +38,7 @@ namespace ConsoleApp
                 switch (valinta.ToUpper())
                 {
                     case "1":
-                        Console.WriteLine("\nVapaat ajat");
+                        VapaatAjat();
                         break;
                     case "2":
                         VaraaAika();
@@ -156,6 +156,42 @@ namespace ConsoleApp
             var uusi = new Booking(date, start, end);
             VaratutAika.Add(uusi);
             Console.WriteLine($"Aika lisätty varattuihin: {uusi}");
+        }
+
+        static void VapaatAjat()
+        {
+            Console.WriteLine("\n=== Vapaat ajat ===");
+            Console.WriteLine("Liike on auki arkisin 08:00 - 16:00 (8 tuntia/päivä)\n");
+
+            TimeSpan open = TimeSpan.FromHours(8);
+            TimeSpan close = TimeSpan.FromHours(16);
+            TimeSpan totalAvailable = close - open;
+
+            // Näytä seuraavien 10 arkipäivän vapaat ajat
+            DateTime current = DateTime.Today;
+            int days = 0;
+
+            while (days < 10)
+            {
+                if (current.DayOfWeek != DayOfWeek.Saturday && current.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    var bookingsForDay = VaratutAika.Where(b => b.Date.Date == current.Date).OrderBy(b => b.Start).ToList();
+                    TimeSpan reserved = TimeSpan.Zero;
+
+                    foreach (var booking in bookingsForDay)
+                    {
+                        reserved += booking.End - booking.Start;
+                    }
+
+                    TimeSpan available = totalAvailable - reserved;
+                    string dayName = current.ToString("dddd", new System.Globalization.CultureInfo("fi-FI"));
+
+                    Console.WriteLine($"{current:yyyy-MM-dd} ({dayName}): {available.Hours}h {available.Minutes}m vapaa");
+                    days++;
+                }
+
+                current = current.AddDays(1);
+            }
         }
 
         static void PeruAika()
