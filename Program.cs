@@ -44,7 +44,7 @@ namespace ConsoleApp
                         VaraaAika();
                         break;
                     case "3":
-                        Console.WriteLine("\nPeru aika");
+                        PeruAika();
                         break;
                     case "X":
                         Console.WriteLine("\nOhjelma päätetään.");
@@ -156,6 +156,45 @@ namespace ConsoleApp
             var uusi = new Booking(date, start, end);
             VaratutAika.Add(uusi);
             Console.WriteLine($"Aika lisätty varattuihin: {uusi}");
+        }
+
+        static void PeruAika()
+        {
+            if (VaratutAika.Count == 0)
+            {
+                Console.WriteLine("\nEi varattuja aikoja peruttavaksi.");
+                return;
+            }
+
+            Console.WriteLine("\n=== Peru aika ===");
+            Console.WriteLine("Kirjoita B palataksesi edelliseen valikkoon, X lopettaaksesi.");
+            Console.WriteLine();
+
+            var sorted = VaratutAika.OrderBy(b => b.Date).ThenBy(b => b.Start).ToList();
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {sorted[i]}");
+            }
+
+            Console.WriteLine("B. Edellinen valikko");
+            Console.WriteLine("X. Lopeta");
+            Console.Write("\nValitse peruttava aika: ");
+
+            string valinta = Console.ReadLine();
+
+            if (valinta.Equals("B", StringComparison.OrdinalIgnoreCase)) return;
+            if (valinta.Equals("X", StringComparison.OrdinalIgnoreCase)) { Console.WriteLine("Ohjelma päätetään."); Environment.Exit(0); }
+
+            if (int.TryParse(valinta, out int index) && index > 0 && index <= sorted.Count)
+            {
+                var peruttava = sorted[index - 1];
+                VaratutAika.Remove(peruttava);
+                Console.WriteLine($"Aika peruttu: {peruttava}");
+            }
+            else
+            {
+                Console.WriteLine("Virheellinen valinta.");
+            }
         }
     }
 }
